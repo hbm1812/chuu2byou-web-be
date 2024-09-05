@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { NewsTypeModule } from './news_type/news_type.module';
-import { NewsTypeModule } from './news_type/news_type.module';
+import { NewsTypeModule } from './modules/newsType/newsType.module';
+import { NewsModule } from './modules/news/news.module';
 
 @Module({
-  imports: [NewsTypeModule],
+  imports: [NewsTypeModule,NewsModule],
   controllers: [AppController],
   providers: [AppService],
 })
