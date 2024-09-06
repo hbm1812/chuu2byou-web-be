@@ -8,9 +8,14 @@ export class TypeNews {
   @Prop({ required: true })
   typeNameJP: string;
 
-  @Prop({ required: true})
+  @Prop({ required: false})
   typeNameEN: string;
+
+  // @Prop({ required: false})
+  // typeNameCN: string;
+
 
 }
 
 export const TypeNewsSchema = SchemaFactory.createForClass(TypeNews);
+
