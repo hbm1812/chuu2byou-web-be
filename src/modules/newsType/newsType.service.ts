@@ -20,8 +20,8 @@ export class NewsTypeService {
         return this.typeNewsModel.find().exec();
     }
 
-    async createLoaiTinTuc(typeNameJP: string, typeNameEN:string ): Promise<any> {
-        const data = new this.typeNewsModel({ typeNameJP, typeNameEN });
+    async createLoaiTinTuc(typeNameJP: string ): Promise<any> {
+        const data = new this.typeNewsModel({ typeNameJP });
         const result = await data.save();
         const Obj = result.toObject();
         return Obj;

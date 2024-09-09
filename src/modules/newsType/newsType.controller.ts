@@ -18,8 +18,8 @@ export class NewsTypeController {
     //Tạo mới
      // @Roles('Super admin')
      @Post()
-     async create(@Body() addNewsType: { typeNameJP: string, typeNameEN:string}) {
-         return this.newsTypeService.createLoaiTinTuc(addNewsType.typeNameJP,addNewsType.typeNameEN);
+     async create(@Body() addNewsType: { typeNameJP: string}) {
+         return this.newsTypeService.createLoaiTinTuc(addNewsType.typeNameJP);
      }
     //  async create(@Body() addNewsType: { typeNameJP: string}) {
     //     return this.newsTypeService.createLoaiTinTuc(addNewsType.typeNameJP);

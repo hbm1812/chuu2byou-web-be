@@ -8,8 +8,8 @@ export class TypeNews {
   @Prop({ required: true })
   typeNameJP: string;
 
-  @Prop({ required: false})
-  typeNameEN: string;
+  // @Prop({ required: false})
+  // typeNameEN: string;
 
   // @Prop({ required: false})
   // typeNameCN: string;
