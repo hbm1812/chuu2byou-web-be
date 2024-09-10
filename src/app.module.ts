@@ -3,11 +3,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { NewsTypeModule } from './modules/newsType/newsType.module';
 import { DatabaseModule } from './database/database.module';
+import { UsersModule } from './modules/users/users.module';
+
 
 @Module({
   imports: [
     DatabaseModule,// Đảm bảo module này đã được import
     NewsTypeModule, 
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
