@@ -4,10 +4,14 @@ import { AppService } from './app.service';
 import { NewsTypeModule } from './modules/newsType/newsType.module';
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './modules/users/users.module';
+import { ConfigModule } from '@nestjs/config';
 
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true, // Để biến môi trường có thể được truy cập toàn cục
+    }),
     DatabaseModule,// Đảm bảo module này đã được import
     NewsTypeModule, 
     UsersModule,
