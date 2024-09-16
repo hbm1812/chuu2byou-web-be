@@ -5,6 +5,9 @@ import { NewsTypeModule } from './modules/newsType/newsType.module';
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './modules/users/users.module';
 import { ConfigModule } from '@nestjs/config';
+import { NewsModule } from './modules/news/news.module';
+import { UploadModule } from './modules/upload/upload.module';
+import { TvModule } from './modules/tv/tv.module';
 
 
 @Module({
@@ -14,7 +17,10 @@ import { ConfigModule } from '@nestjs/config';
     }),
     DatabaseModule,// Đảm bảo module này đã được import
     NewsTypeModule, 
+    NewsModule,
     UsersModule,
+    UploadModule,
+    TvModule,
   ],
   controllers: [AppController],
   providers: [AppService],

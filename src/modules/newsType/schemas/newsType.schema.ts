@@ -5,6 +5,9 @@ export type TypeNewsDocument = TypeNews & Document;
 @Schema()
 export class TypeNews {
 
+  @Prop({ required: true, unique: true })
+  typeCode: string;
+
   @Prop({ required: true })
   typeNameJP: string;
 
