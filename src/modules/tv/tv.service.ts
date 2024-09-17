@@ -21,10 +21,10 @@ export class TvService {
     // Tạo bộ lọc tìm kiếm với typeNameJP và typeCode
     const filter: any = {};
     if (tvCode) {
-      filter.typeNameJP = { $regex: tvCode, $options: 'i' };
+      filter.tvCode = { $regex: tvCode, $options: 'i' };
     }
     if (tvName) {
-      filter.typeCode = { $regex: tvName, $options: 'i' };
+      filter.tvName = { $regex: tvName, $options: 'i' };
     }
 
     // Tính tổng số bản ghi phù hợp với bộ lọc
@@ -51,7 +51,7 @@ export class TvService {
 
 
 
-  async create(tvCode: string, tvName: string, time:string, describe:string): Promise<Tv> {
+  async create(tvCode: string, tvName: string, broadcastTime:string, description:string): Promise<Tv> {
     // Kiểm tra sự tồn tại của typeCode
     const existingType = await this.tvModel.findOne({ tvCode }).exec();
     if (existingType) {
@@ -59,7 +59,7 @@ export class TvService {
     }
 
     // Thêm mới nếu typeCode chưa tồn tại
-    const tv = new this.tvModel({ tvCode, tvName, time, describe });
+    const tv = new this.tvModel({ tvCode, tvName, broadcastTime, description });
     return tv.save();
   }
 
@@ -74,7 +74,7 @@ export class TvService {
 
 
 
-  async update(body: { tvCode: string; tvName: string; time: string; describe: string }, _id: string): Promise<Tv | null> {
+  async update(body: { tvCode: string; tvName: string; broadcastTime: string; description: string }, _id: string): Promise<Tv | null> {
     // Kiểm tra xem `typeCode` đã tồn tại chưa, ngoại trừ bản ghi hiện tại
     const existingTv = await this.tvModel.findOne({ tvCode: body.tvCode, _id: { $ne: _id } }).exec();
 

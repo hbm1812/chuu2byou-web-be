@@ -18,8 +18,8 @@ export class TvController {
   //Tạo mới
   // @Roles('Super admin')
   @Post('add')
-  async create(@Body() addTV: { tvCode: string; tvName: string; time: string; describe: string }) {
-    return this.tvService.create(addTV.tvCode, addTV.tvName, addTV.time, addTV.describe);
+  async create(@Body() addTV: { tvCode: string; tvName: string; broadcastTime: string; description: string }) {
+    return this.tvService.create(addTV.tvCode, addTV.tvName, addTV.broadcastTime, addTV.description);
   }
 
 
@@ -42,7 +42,7 @@ export class ControllerUpdate {
   // @Roles('Super admin')
   @Put('/:id')
   async update(
-    @Body() body: { tvCode: string; tvName: string; time: string; describe: string },
+    @Body() body: { tvCode: string; tvName: string; broadcastTime: string; description: string },
     @Param('id') _id: string,
     @Res() res: Response,
   ) {

@@ -12,10 +12,10 @@ export class Tv {
     tvName: string;
 
     @Prop({ required: true })
-    time: string;
+    broadcastTime: string;
 
     @Prop()
-    describe: string;
+    description: string;
 
 }
 
