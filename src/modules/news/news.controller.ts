@@ -17,8 +17,8 @@ export class NewsController {
   //Tạo mới
   // @Roles('Super admin')
   @Post('add')
-  async create(@Body() addNews: { newsCode: string; title: string; thumbnail: string; typeCode: string; upLoadDate: string; content: string; image: string; relatedInformation: string }) {
-    return this.newsService.createNews(addNews.newsCode, addNews.title, addNews.thumbnail, addNews.typeCode, addNews.upLoadDate, addNews.content, addNews.image, addNews.relatedInformation);
+  async create(@Body() addNews: { newsCode: string; title: string; thumbnail: string; typeCode: string; upLoadDate: string; content: string;  relatedInformation: string }) {
+    return this.newsService.createNews(addNews.newsCode, addNews.title, addNews.thumbnail, addNews.typeCode, addNews.upLoadDate, addNews.content,  addNews.relatedInformation);
   }
 
 
@@ -30,7 +30,7 @@ export class NewsController {
 
   @Put('update/:id')
   async update(
-    @Body() body: { newsCode: string; title: string; thumbnail: string; typeCode: string; upLoadDate: string; content: string; image: string; relatedInformation: string } ,
+    @Body() body: { newsCode: string; title: string; thumbnail: string; typeCode: string; upLoadDate: string; content: string;  relatedInformation: string } ,
     @Param('id') _id: string,
     @Res() res: Response,
   ) {

@@ -49,7 +49,7 @@ export class NewsService {
     }
 
 
-    async createNews(newsCode: string, title: string, thumbnail: string, typeCode: string, upLoadDate: string, content: string, image: string, relatedInformation: string): Promise<News> {
+    async createNews(newsCode: string, title: string, thumbnail: string, typeCode: string, upLoadDate: string, content: string, relatedInformation: string): Promise<News> {
         // Kiểm tra sự tồn tại của newsCode
         const existingType = await this.newsModel.findOne({ newsCode }).exec();
         if (existingType) {
@@ -57,7 +57,7 @@ export class NewsService {
         }
 
         // Thêm mới nếu newsCode chưa tồn tại
-        const newData = new this.newsModel({ newsCode, title, thumbnail, typeCode, upLoadDate, content, image, relatedInformation });
+        const newData = new this.newsModel({ newsCode, title, thumbnail, typeCode, upLoadDate, content,  relatedInformation });
         return newData.save();
     }
 
@@ -72,7 +72,7 @@ export class NewsService {
 
 
 
-    async update(body: { newsCode: string, title: string, thumbnail: string, typeCode: string, upLoadDate: string, content: string, image: string, relatedInformation: string }, _id: string): Promise<News | null> {
+    async update(body: { newsCode: string, title: string, thumbnail: string, typeCode: string, upLoadDate: string, content: string, relatedInformation: string }, _id: string): Promise<News | null> {
         // Kiểm tra xem `newsCode` đã tồn tại chưa, ngoại trừ bản ghi hiện tại
         const existingNews = await this.newsModel.findOne({ newsCode: body.newsCode, _id: { $ne: _id } }).exec();
 

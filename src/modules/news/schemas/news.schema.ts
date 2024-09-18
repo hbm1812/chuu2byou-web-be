@@ -24,9 +24,6 @@ export class News {
     content: string;
 
     @Prop()
-    image: string;
-
-    @Prop()
     relatedInformation: string;
 
     // @Prop({ required: false})
