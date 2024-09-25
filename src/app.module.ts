@@ -3,11 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { NewsTypeModule } from './modules/newsType/newsType.module';
 import { DatabaseModule } from './database/database.module';
-import { UsersModule } from './modules/users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { NewsModule } from './modules/news/news.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { TvModule } from './modules/tv/tv.module';
+import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 
 @Module({
@@ -21,6 +22,7 @@ import { TvModule } from './modules/tv/tv.module';
     UsersModule,
     UploadModule,
     TvModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

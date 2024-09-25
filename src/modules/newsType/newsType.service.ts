@@ -16,9 +16,10 @@ export class NewsTypeService {
   ) { }
 
 
-  // async getAll(): Promise<TypeNews[]> {
-  //     return this.typeNewsModel.find().exec();
-  // }
+  async getAllNoParams(): Promise<TypeNews[]> {
+      return this.typeNewsModel.find().exec();
+  }
+  
   async getAll(page: number, size: number, typeNameJP: string, typeCode: string): Promise<{ data: TypeNews[], total: number, totalPage: number }> {
     const skip = page * size;
 

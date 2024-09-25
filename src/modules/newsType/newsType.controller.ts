@@ -10,10 +10,10 @@ export class NewsTypeController {
 
   // @UseGuards(JwtAuthGuard, RolesGuard)
   // @Roles('Super admin')
-  // @Get()
-  // async getAll(@Request() req) {
-  //     return this.newsTypeService.getAll();
-  // }
+  @Get('get-no-params')
+  async getAllNoParams(@Request() req) {
+      return this.newsTypeService.getAllNoParams();
+  }
 
   //Tìm kiếm
   @Post('get-all')
