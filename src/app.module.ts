@@ -9,6 +9,8 @@ import { UploadModule } from './modules/upload/upload.module';
 import { TvModule } from './modules/tv/tv.module';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { WorksModule } from './modules/works/works.module';
+import { MenuModule } from './modules/menu/menu.module';
 
 
 @Module({
@@ -23,6 +25,8 @@ import { AuthModule } from './modules/auth/auth.module';
     UploadModule,
     TvModule,
     AuthModule,
+    WorksModule,
+    MenuModule,
   ],
   controllers: [AppController],
   providers: [AppService],

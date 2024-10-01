@@ -4,7 +4,7 @@ import { TypeNews } from './schemas/newsType.schema';
 import { Response } from 'express';
 import { responseData } from 'src/common/responseData.util';
 
-@Controller('newsType')
+@Controller('category/newsType')
 export class NewsTypeController {
   constructor(private readonly newsTypeService: NewsTypeService) { }
 

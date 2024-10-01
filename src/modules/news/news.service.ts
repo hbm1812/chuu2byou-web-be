@@ -9,7 +9,7 @@ export class NewsService {
         @InjectModel(News.name) private readonly newsModel: Model<NewsDocument>) { }
         
 
-    async getAll(page: number, size: number, newsCode: string, title: string, typeCode: string, upLoadDate: string): Promise<{ data: News[], total: number, totalPage: number }> {
+    async getAll(page: number, size: number, newsCode: string, title: string, typeCode: string, upLoadDate: string, titleImage:string): Promise<{ data: News[], total: number, totalPage: number }> {
         const skip = page * size;
 
         // Tạo bộ lọc tìm kiếm 
@@ -49,7 +49,7 @@ export class NewsService {
     }
 
 
-    async createNews(newsCode: string, title: string, thumbnail: string, typeCode: string, upLoadDate: string, content: string, relatedInformation: string): Promise<News> {
+    async createNews(newsCode: string, title: string, thumbnail: string, typeCode: string, upLoadDate: string, content: string, relatedInformation: string, titleImage:string): Promise<News> {
         // Kiểm tra sự tồn tại của newsCode
         const existingType = await this.newsModel.findOne({ newsCode }).exec();
         if (existingType) {
@@ -57,7 +57,7 @@ export class NewsService {
         }
 
         // Thêm mới nếu newsCode chưa tồn tại
-        const newData = new this.newsModel({ newsCode, title, thumbnail, typeCode, upLoadDate, content,  relatedInformation });
+        const newData = new this.newsModel({ newsCode, title, thumbnail, typeCode, upLoadDate, content,  relatedInformation, titleImage });
         return newData.save();
     }
 
@@ -72,7 +72,7 @@ export class NewsService {
 
 
 
-    async update(body: { newsCode: string, title: string, thumbnail: string, typeCode: string, upLoadDate: string, content: string, relatedInformation: string }, _id: string): Promise<News | null> {
+    async update(body: { newsCode: string, title: string, thumbnail: string, typeCode: string, upLoadDate: string, content: string, relatedInformation: string, titleImage:string }, _id: string): Promise<News | null> {
         // Kiểm tra xem `newsCode` đã tồn tại chưa, ngoại trừ bản ghi hiện tại
         const existingNews = await this.newsModel.findOne({ newsCode: body.newsCode, _id: { $ne: _id } }).exec();
 

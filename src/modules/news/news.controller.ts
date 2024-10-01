@@ -3,22 +3,22 @@ import { NewsService } from './news.service';
 import { News } from './schemas/news.schema';
 import { Response } from 'express';
 
-@Controller('news')
+@Controller('category/news')
 export class NewsController {
     constructor(private readonly newsService: NewsService) { }
 
     //Tìm kiếm
   @Post('get-all')
-  async getAll(@Body() pagination: { page: number; size: number; newsCode: string; title: string; typeCode:string; upLoadDate:string }): Promise<{ data: News[], total: number, totalPage: number }> {
-    const { page, size, newsCode, title, typeCode, upLoadDate  } = pagination;
-    return this.newsService.getAll(page, size, newsCode, title, typeCode, upLoadDate);
+  async getAll(@Body() pagination: { page: number; size: number; newsCode: string; title: string; typeCode:string; upLoadDate:string; titleImage:string }): Promise<{ data: News[], total: number, totalPage: number }> {
+    const { page, size, newsCode, title, typeCode, upLoadDate, titleImage  } = pagination;
+    return this.newsService.getAll(page, size, newsCode, title, typeCode, upLoadDate, titleImage);
   }
 
   //Tạo mới
   // @Roles('Super admin')
   @Post('add')
-  async create(@Body() addNews: { newsCode: string; title: string; thumbnail: string; typeCode: string; upLoadDate: string; content: string;  relatedInformation: string }) {
-    return this.newsService.createNews(addNews.newsCode, addNews.title, addNews.thumbnail, addNews.typeCode, addNews.upLoadDate, addNews.content,  addNews.relatedInformation);
+  async create(@Body() addNews: { newsCode: string; title: string; thumbnail: string; typeCode: string; upLoadDate: string; content: string;  relatedInformation: string; titleImage:string }) {
+    return this.newsService.createNews(addNews.newsCode, addNews.title, addNews.thumbnail, addNews.typeCode, addNews.upLoadDate, addNews.content,  addNews.relatedInformation, addNews.titleImage);
   }
 
 
@@ -30,7 +30,7 @@ export class NewsController {
 
   @Put('update/:id')
   async update(
-    @Body() body: { newsCode: string; title: string; thumbnail: string; typeCode: string; upLoadDate: string; content: string;  relatedInformation: string } ,
+    @Body() body: { newsCode: string; title: string; thumbnail: string; typeCode: string; upLoadDate: string; content: string;  relatedInformation: string; titleImage: string } ,
     @Param('id') _id: string,
     @Res() res: Response,
   ) {
@@ -51,7 +51,7 @@ export class NewsController {
   }
 
 
-  @Delete('delete/:id')
+  @Delete('globalMenu/delete/:id')
   async delete(
     @Param('id') _id: string,
     @Res() res: Response,

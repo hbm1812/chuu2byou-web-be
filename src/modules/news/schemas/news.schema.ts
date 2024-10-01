@@ -11,7 +11,7 @@ export class News {
     @Prop({ required: true })
     title: string;
 
-    @Prop({ required: true })
+    @Prop()
     thumbnail: string;
 
     @Prop({ required: true })
@@ -26,8 +26,8 @@ export class News {
     @Prop()
     relatedInformation: string;
 
-    // @Prop({ required: false})
-    // typeNameCN: string;
+    @Prop({ required: true })
+    titleImage: string;
 
 
 }

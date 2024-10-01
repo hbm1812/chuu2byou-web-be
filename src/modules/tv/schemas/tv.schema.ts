@@ -4,9 +4,16 @@ import { Document } from 'mongoose';
 export type TvDocument = Tv & Document;
 @Schema()
 export class Tv {
+    
 
     @Prop({ required: true, unique: true })
     tvCode: string;
+
+    @Prop( )
+    menuCode: string;
+
+    @Prop( )
+    parentCode: string;
 
     @Prop({ required: true })
     tvName: string;
