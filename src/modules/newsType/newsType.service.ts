@@ -5,8 +5,6 @@ import { TypeNews, TypeNewsDocument } from './schemas/newsType.schema';
 import { TranslationService } from '../translation/translation.service';
 
 
-
-
 @Injectable()
 
 export class NewsTypeService {

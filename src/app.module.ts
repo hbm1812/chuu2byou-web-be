@@ -10,6 +10,8 @@ import { TvModule } from './modules/tv/tv.module';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { WorksModule } from './modules/works/works.module';
+import { MenuType } from './modules/menuType/schemas/menuType.shema';
+import { MenuTypeModule } from './modules/menuType/menuType.module';
 import { MenuModule } from './modules/menu/menu.module';
 
 
@@ -26,6 +28,7 @@ import { MenuModule } from './modules/menu/menu.module';
     TvModule,
     AuthModule,
     WorksModule,
+    MenuTypeModule,
     MenuModule,
   ],
   controllers: [AppController],

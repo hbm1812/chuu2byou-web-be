@@ -5,13 +5,12 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { User, UserDocument } from '../users/schemas/users.schemas';
 import { AuthGuard } from '@nestjs/passport';
-import { GlobalMenu, GlobalMenuDocument } from './schemas/menu.schema';
 
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,@InjectModel(GlobalMenu.name) private readonly menuModel: Model<GlobalMenuDocument>
+    @InjectModel(User.name) private readonly userModel: Model<UserDocument>
   ) { }
 
   async login(username: string, password: string): Promise<{ token: string }> {
@@ -46,128 +45,8 @@ export class AuthService {
   }
 
 
-// Hàm để lấy menu theo cấu trúc phân cấp với tìm kiếm và phân trang
-async getHierarchicalGlobalMenu(page: number, size: number, key: string, name: string): Promise<{ data: GlobalMenu[], total: number, totalPage: number }> {
-  const skip = page * size;
-
-  // Tạo bộ lọc tìm kiếm
-  const filter: any = {};
-  if (key) {
-      filter.key = { $regex: key, $options: 'i' };
-  }
-  if (name) {
-      filter.name = { $regex: name, $options: 'i' };
-  }
-
-  // Tính tổng số bản ghi phù hợp với bộ lọc
-  const total = await this.menuModel.countDocuments(filter).exec();
-
-  // Tính tổng số trang
-  const totalPage = Math.ceil(total / size);
-
-  // Lấy tất cả dữ liệu (không phân trang) để đảm bảo rằng bạn có thể xây dựng đầy đủ cấu trúc phân cấp
-  const allMenus = await this.menuModel.find().sort({ ordinal: 1 }).exec();
-
-  // Tạo cấu trúc phân cấp
-  const menuMap = new Map();
-  allMenus.forEach(menu => {
-      menu.children = [];
-      menuMap.set(menu.code, menu);
-  });
-
-  const hierarchicalMenu = [];
-  allMenus.forEach(menu => {
-      if (menu.parentCode) {
-          const parent = menuMap.get(menu.parentCode);
-          if (parent) {
-              parent.children.push(menu);
-          }
-      } else {
-          hierarchicalMenu.push(menu);
-      }
-  });
-
-  // Sau khi có cấu trúc phân cấp, lấy các phần tử trong phạm vi trang và kích thước
-  const paginatedMenu = hierarchicalMenu.slice(skip, skip + size);
-
-  // Trả về kết quả theo định dạng yêu cầu
-  return {
-      data: paginatedMenu,
-      total,
-      totalPage,
-  };
-}
 
 
-
-    
-async addGlobalMenu(menuData: { key: string; code: string; parentCode: string; name: string; path: string; icon: string; landing: number; showMenu: number; children: GlobalMenu[] }) {
-  // Kiểm tra xem mã code đã tồn tại chưa
-  const existingMenu = await this.menuModel.findOne({ code: menuData.code }).exec();
-  if (existingMenu) {
-    throw new Error(`Menu with code "${menuData.code}" already exists.`);
-  }
-
-  // Tạo mới menu với dữ liệu đã nhận từ controller
-  const newMenu = new this.menuModel({
-    key: menuData.key,
-    code: menuData.code,
-    parentCode: menuData.parentCode,
-    name: menuData.name,
-    path: menuData.path,
-    icon: menuData.icon,
-    landing: menuData.landing,
-    showMenu: menuData.showMenu,
-    children: menuData.children // Thêm dữ liệu children từ menuData
-  });
-
-  // Lưu menu mới
-  return newMenu.save();
-}
-
-  
-async updateGlobalMenu(body: { key: string; code: string; parentCode: string; name: string; path: string; icon: string; landing: number; showMenu: number; children: GlobalMenu[] }, _id: string): Promise<GlobalMenu | null> {
-  // Kiểm tra xem `newsCode` đã tồn tại chưa, ngoại trừ bản ghi hiện tại
-  const existingNews = await this.menuModel.findOne({ code: body.code, _id: { $ne: _id } }).exec();
-
-  if (existingNews) {
-      // Nếu tồn tại, ném lỗi
-      throw new ConflictException('Code already exists');
-  }
-
-  // Cập nhật bản ghi
-  const data = await this.menuModel.findByIdAndUpdate(_id, body, { new: true }).exec();
-  if (!data) {
-      throw new NotFoundException(`No record found with ID: ${_id}`);
-  }
-  return data;
-}
-  
-
-
-  // Hàm tìm kiếm chi tiết theo ID
-  async getGlobalMenuById(_id): Promise<GlobalMenu> {
-    const data = await this.menuModel.findById(_id).exec();
-    if (!data) {
-        throw new NotFoundException(`No record found with ID: ${_id}`);
-    }
-    return data;
-}
-
-
-async deleteGlobalMenu(_id: string): Promise<string> {
-  // Tìm và xóa bản ghi
-  const data = await this.menuModel.findByIdAndDelete(_id).exec();
-
-  // Kiểm tra kết quả xóa
-  if (!data) {
-      // Nếu không tìm thấy bản ghi để xóa, ném lỗi
-      throw new NotFoundException('News type not found');
-  }
-
-  // Nếu xóa thành công, trả về thông báo thành công
-  return 'Delete successful!';
-}
 
   // getMenuWeb2() {
   //   const menuWeb2 = [{
@@ -829,21 +708,21 @@ async deleteGlobalMenu(_id: string): Promise<string> {
         "icon": "SettingOutlined",
         "children": [
           {
-            "key": "GM",
-            "code": "GM",
-            "name": "Global Menu",
+            "key": "Menu",
+            "code": "Menu",
+            "name": "Menu",
             "parentCode": "MM",
-            "path": "/menu-management/global-menu",
+            "path": "/menu-management/menu",
             "ordinal": 1,
             "icon": "OpenAIOutlined",
             "children": []
           },
           {
-            "key": "SupM",
-            "code": "SupM",
-            "name": "Sup Menu",
+            "key": "MT",
+            "code": "MT",
+            "name": "MenuType",
             "parentCode":"MM",
-            "path": "/menu-management/sup-menu",
+            "path": "/menu-management/menu-type",
             "ordinal": 2,
             "icon": "OpenAIOutlined",
             "children": []

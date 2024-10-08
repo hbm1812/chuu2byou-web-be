@@ -1,16 +1,16 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type GlobalMenuDocument = GlobalMenu & Document;
+export type MenuDocument = Menu & Document;
 @Schema()
-export class GlobalMenu {
+export class Menu {
   
     @Prop({ required: true, unique: true })
     key: string;
   
     @Prop({ required: true })
     code: string;
-  
+
     @Prop()
     parentCode: string;
   
@@ -28,14 +28,20 @@ export class GlobalMenu {
   
     @Prop()
     showMenu: number;
+
+    @Prop()
+    menuTypeCode: string;
+
+    @Prop({required: true})
+    menuLevel: number;
   
     @Prop({ type: [{ type: Object }] })
-    children: GlobalMenu[];
+    children: Menu[];
   
 
 }
 
-export const GlobalMenuSchema = SchemaFactory.createForClass(GlobalMenu);
+export const MenuSchema = SchemaFactory.createForClass(Menu);
 
 
 
